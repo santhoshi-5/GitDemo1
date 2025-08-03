@@ -28,5 +28,6 @@ public static void main(String[] args)
     d.add(2);
     queueFunction(d);
     System.out.println("chceking git again");
+    System.out.println("i am f direcoty one ");
 }
 }
