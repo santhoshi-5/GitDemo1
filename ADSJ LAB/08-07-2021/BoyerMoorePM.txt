@@ -1,0 +1,62 @@
+import java.util.*;
+class BoyerMoorePM
+{
+	int m,n;
+	HashMap<Character,Integer> last;
+	BoyerMoorePM()
+	{
+		last = new HashMap<Character,Integer>();
+	}
+	void lastOccurence(char[] t,char[] p)
+	{
+		for(int i=0;i<n;i++)
+			last.put(t[i],-1);
+		for(int k=0;k<m;k++)
+			last.put(p[k],k);
+	}
+	int bm(char[] t,char[] p)
+	{
+		int i,j,k;
+		n=t.length;
+		m=p.length;
+		i=m-1;
+		k=m-1;
+		lastOccurence(t,p);
+		while(i<n)
+		{
+			if(t[i]==p[k])
+			{
+				if(k==0)
+					return i;
+				k--;
+				i--;
+			}
+			else
+			{
+				j=last.get(t[i]);
+				if(j==-1)
+					i=i+m;
+				else if(j<k)
+					i=(i+m)-(j+1);
+				else
+					i=(i+m)-k;
+				k=m-1;
+			}
+		}
+		return -1;
+	}
+	public static void main(String[] args)
+	{
+		Scanner sc = new Scanner(System.in);
+		String t,p;
+		System.out.println("Enter the main text and substring");
+		t=sc.nextLine();
+		p=sc.nextLine();
+		BoyerMoorePM b = new BoyerMoorePM();
+		int pos = b.bm(t.toCharArray(),p.toCharArray());
+		if(pos==-1)
+			System.out.println("Substring is not found in main text");
+		else
+			System.out.println("Substring is found at position "+pos+" in main String");
+	}
+}
